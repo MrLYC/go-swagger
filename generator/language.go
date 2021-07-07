@@ -431,3 +431,18 @@ func checkPrefixAndFetchRelativePath(childpath string, parentpath string) (bool,
 	return false, ""
 
 }
+
+// UnlimitedOpts for rendering without limits
+func UnlimitedOpts() *LanguageOpts {
+	opts := LanguageOpts{
+		ReservedWords: []string{},
+		formatFunc: func(ffn string, content []byte) ([]byte, error) {
+			return content, nil
+		},
+		fileNameFunc: func(s string) string { return s },
+		dirNameFunc:  func(s string) string { return s },
+	}
+	opts.Init()
+
+	return &opts
+}
