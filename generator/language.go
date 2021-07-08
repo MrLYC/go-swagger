@@ -17,6 +17,7 @@ import (
 	"golang.org/x/tools/imports"
 )
 
+// DefaultLanguageFunc :
 var (
 	// DefaultLanguageFunc defines the default generation language
 	DefaultLanguageFunc func() *LanguageOpts
@@ -432,17 +433,14 @@ func checkPrefixAndFetchRelativePath(childpath string, parentpath string) (bool,
 
 }
 
-// UnlimitedOpts for rendering without limits
-func UnlimitedOpts() *LanguageOpts {
-	opts := LanguageOpts{
-		ReservedWords: []string{},
-		formatFunc: func(ffn string, content []byte) ([]byte, error) {
-			return content, nil
-		},
-		fileNameFunc: func(s string) string { return s },
-		dirNameFunc:  func(s string) string { return s },
+// NewLanguageOpts :
+func NewLanguageOpts(formatFunc func(string, []byte) ([]byte, error),
+	fileNameFunc func(string) string,
+	dirNameFunc func(string) string,
+) *LanguageOpts {
+	return &LanguageOpts{
+		formatFunc:   formatFunc,
+		fileNameFunc: fileNameFunc,
+		dirNameFunc:  dirNameFunc,
 	}
-	opts.Init()
-
-	return &opts
 }

@@ -572,7 +572,7 @@ func (g *GenOpts) location(t *TemplateOpts, data interface{}) (string, string, e
 	if e := fNameTpl.Execute(&fNameBuf, d); e != nil {
 		return "", "", e
 	}
-	return pthBuf.String(), fileName(fNameBuf.String()), nil
+	return pthBuf.String(), fNameBuf.String(), nil
 }
 
 func (g *GenOpts) render(t *TemplateOpts, data interface{}) ([]byte, error) {
@@ -920,8 +920,13 @@ type opRef struct {
 
 type opRefs []opRef
 
-func (o opRefs) Len() int           { return len(o) }
-func (o opRefs) Swap(i, j int)      { o[i], o[j] = o[j], o[i] }
+// Len :
+func (o opRefs) Len() int { return len(o) }
+
+// Swap :
+func (o opRefs) Swap(i, j int) { o[i], o[j] = o[j], o[i] }
+
+// Less :
 func (o opRefs) Less(i, j int) bool { return o[i].Key < o[j].Key }
 
 func gatherOperations(specDoc *analysis.Spec, operationIDs []string) map[string]opRef {
