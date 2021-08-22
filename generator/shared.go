@@ -456,7 +456,7 @@ func (g *GenOpts) EnsureDefaults() error {
 		return nil
 	}
 
-	g.templates = templates.ShallowClone()
+	g.templates = NewRepository(FuncMapFunc(DefaultLanguageFunc()))
 
 	g.templates.LoadDefaults()
 
